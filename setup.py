@@ -29,7 +29,7 @@ def get_extensions():
     extra_compile_args = {"cxx": []}
     define_macros = []
 
-    force_enable_gpu = False
+    force_enable_gpu = True
     if force_enable_gpu or (torch.cuda.is_available() and CUDA_HOME is not None):
         extension = CUDAExtension
         sources += source_cuda
