@@ -31,7 +31,6 @@ def get_extensions():
 
     force_enable_gpu = True
     if force_enable_gpu or (torch.cuda.is_available() and CUDA_HOME is not None):
-        print("CUDA AVAILABLE!")
         extension = CUDAExtension
         sources += source_cuda
         define_macros += [("WITH_CUDA", None)]
@@ -46,7 +45,7 @@ def get_extensions():
         print(torch.cuda.is_available())
         print(CUDA_HOME)
         print("="*80)
-        # raise NotImplementedError('Cuda is not available')
+        raise NotImplementedError('Cuda is not available')
     
 
     sources = [os.path.join(extensions_dir, s) for s in sources]
