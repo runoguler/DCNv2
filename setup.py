@@ -29,11 +29,8 @@ def get_extensions():
     extra_compile_args = {"cxx": []}
     define_macros = []
 
-    print("="*80)
-    print(torch.cuda.is_available())
-    print(CUDA_HOME)
-    print("="*80)
-    if torch.cuda.is_available() and CUDA_HOME is not None:
+    force_enable_gpu = True
+    if force_enable_gpu or (torch.cuda.is_available() and CUDA_HOME is not None):
         print("CUDA AVAILABLE!")
         extension = CUDAExtension
         sources += source_cuda
@@ -45,7 +42,11 @@ def get_extensions():
             "-D__CUDA_NO_HALF2_OPERATORS__",
         ]
     else:
-        raise NotImplementedError('Cuda is not available')
+        print("="*80)
+        print(torch.cuda.is_available())
+        print(CUDA_HOME)
+        print("="*80)
+        # raise NotImplementedError('Cuda is not available')
     
 
     sources = [os.path.join(extensions_dir, s) for s in sources]
